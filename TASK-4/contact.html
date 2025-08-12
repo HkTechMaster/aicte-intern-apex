@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact — Hitesh Khutela</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">Hitesh Khutela</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="todo.html">To‑Do App</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html" >Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card contact-card">
+      <h1>Contact</h1>
+      <p>Email: <a href="mailto:Hiteshkhutela@gmail.com">Hiteshkhutela@gmail.com</a></p>
+      <p>Phone: +91 96535 16131</p>
+      <h2>Message</h2>
+      <form id="contactForm" onsubmit="submitForm(event)">
+        <label>Name</label>
+        <input type="text" id="name" required>
+        <label>Email</label>
+        <input type="email" id="email" required>
+        <label>Message</label>
+        <textarea id="message" rows="6" required></textarea>
+        <button class="btn" type="submit">Send Message</button>
+        <p id="contactResult" style="margin-top:.5rem"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 Task-4 Projects</p>
+    </div>
+  </footer>
+  <style>
+    /* ===== Contact Page Styling ===== */
+
+.contact-card h1 {
+  margin-bottom: 1rem;
+  color: var(--primary-dark);
+}
+
+.contact-card h2 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  color: var(--primary);
+}
+
+/* Form elements */
+form label {
+  display: block;
+  margin: 0.6rem 0 0.3rem;
+  font-weight: 600;
+  color: #333;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  background: #fff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.2);
+  outline: none;
+}
+
+form textarea {
+  resize: none;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  background: var(--primary);
+  color: var(--white);
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+}
+  </style>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

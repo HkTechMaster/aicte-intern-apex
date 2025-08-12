@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MiniShop - Your Cart</title>
+  <style>
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial;
+      margin: 0;
+      background: #f6f8fb;
+      color: #0b2135;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border-bottom: 1px solid #e6eef6;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      margin-bottom: 1rem;
+    }
+    .brand {
+      font-weight: 700;
+      color: #0a6b63;
+      font-size: 1.25rem;
+    }
+    .btn {
+      border: 0;
+      background: #0a6b63;
+      color: #fff;
+      padding: 0.5rem 0.7rem;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .btn:hover,
+    .btn:focus {
+      background: #084d44;
+      outline: none;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid #e6eef6;
+    }
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    .cart-item img {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 1rem;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .cart-item-info {
+      flex: 1;
+    }
+    .cart-item-info strong {
+      font-weight: 600;
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .cart-item-info .price-qty {
+      color: #687882;
+      font-size: 0.9rem;
+    }
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .qty-controls button {
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      border: none;
+      background: #0a6b63;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    .qty-controls button:hover {
+      background: #084d44;
+    }
+    .qty-controls button.remove {
+      background: #b00020;
+      padding: 0.3rem 1rem;
+      font-weight: 700;
+    }
+    .qty-controls button.remove:hover {
+      background: #7a0013;
+    }
+    .total {
+      margin-top: 2rem;
+      font-weight: 700;
+      font-size: 1.3rem;
+      text-align: right;
+      border-top: 2px solid #0a6b63;
+      padding-top: 1rem;
+    }
+    .btn-checkout {
+      margin-top: 1.5rem;
+      background: #0a6b63;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 700;
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: background-color 0.3s ease;
+    }
+    .btn-checkout:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .btn-checkout:not(:disabled):hover {
+      background-color: #084d44;
+    }
+    @media (max-width: 480px) {
+      .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .cart-item img {
+        margin-bottom: 0.6rem;
+      }
+      .qty-controls {
+        margin-top: 0.6rem;
+      }
+      .total {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+    <header>
+    <div class="brand">MiniShop</div>
+    <nav aria-label="Main">
+        <a href="index.html" class="btn" id="homeBtn">Home</a>
+    </nav>
+    </header>
+  <h1>Your Cart</h1>
+  <div id="cartItems"></div>
+  <div class="total">Total: ₹<span id="cartTotal">0</span></div>
+  <button id="checkoutBtn" class="btn-checkout" disabled>Checkout</button>
+
+  <script>
+    // Same PRODUCTS data but now with images included
+    const PRODUCTS = [
+    {id:1, title:'Handmade Mug', price:349, img:'https://s-media-cache-ak0.pinimg.com/originals/ff/6c/96/ff6c96fa230affe5c5ed148429dc44fc.jpg'},
+    {id:2, title:'Canvas Tote Bag', price:499, img:'https://tse4.mm.bing.net/th/id/OIP.weBmnpkkmFhyPdsrTkK6qwHaHx?cb=thfc1&rs=1&pid=ImgDetMain&o=7&rm=3'},
+    {id:3, title:'Wireless Earbuds', price:1499, img:'https://m.media-amazon.com/images/I/71-TQ1oSm+L._AC_SL1500_.jpg'},
+    {id:4, title:'Plant Pot', price:299, img:'https://i5.walmartimages.com/asr/0c60bdc2-69f9-4030-8ccd-26243f3f1f88.e8365f1fc69844eceb6f20a7af3caa74.jpeg'},
+    {id:5, title:'Scented Candle', price:249, img:'https://tse2.mm.bing.net/th/id/OIP.K-NCNplEn6gbRSI28ThPiAHaE8?cb=thfc1&rs=1&pid=ImgDetMain&o=7&rm=3'},
+    {id:6, title:'Leather Wallet', price:899, img:'https://i.etsystatic.com/50478446/r/il/a837b4/5961824917/il_600x600.5961824917_kqd6.jpg'},
+    {id:7, title:'Bluetooth Speaker', price:1799, img:'https://www.pngmart.com/files/7/Bluetooth-Speaker-PNG-Image.png'},
+    {id:8, title:'Travel Backpack', price:2999, img:'https://people.com/thmb/Ywx-CLV6Tx7t7JOpTudoZ72lxNQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/peo-timbuk2-authority-laptop-backpack-deluxe-cralph-001.jpg-e3c67529787c49139b2850914b414d90.jpg'},
+    {id:9, title:'Running Shoes', price:2199, img:'https://images.pexels.com/photos/163535/run-fitness-workout-train-163535.jpeg?cs=srgb&dl=pexels-pixabay-163535.jpg&fm=jpg'},
+    {id:10, title:'Smart Watch', price:2499, img:'https://m.media-amazon.com/images/I/61ZjlBOp+rL.jpg'},
+    {id:11, title:'Sunglasses', price:799, img:'https://picfiles.alphacoders.com/288/thumb-1920-288489.jpg'},
+    {id:12, title:'Desk Lamp', price:999, img:'https://i5.walmartimages.com/asr/06fe3c4d-b145-4ecc-9f23-ac53b992f311.29d089a03a8748e8945e961b06ceab65.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF'},
+    {id:13, title:'Notebook', price:199, img:'https://images.pexels.com/photos/616849/pexels-photo-616849.jpeg?cs=srgb&dl=pexels-lum3n-44775-616849.jpg&fm=jpg'},
+    {id:14, title:'Water Bottle', price:349, img:'https://i5.walmartimages.com/seo/Thermoflask-Double-Wall-Vacuum-Insulated-Stainless-Steel-Water-Bottle-2-Pack-Midnight-Stone_1cf8d78d-5a3e-4c91-8e1d-68d64aa81617.5a726f0990af1a03955b21f18dc24cac.jpeg'},
+    {id:15, title:'Wireless Charger', price:1299, img:'https://i5.walmartimages.com/asr/356a1dc2-9f90-406c-b811-ea5cebdb9ffa_1.16913f4f29fd6567906fe07289be855e.jpeg'}
+    ];
+
+    const CART_KEY = 'mini_cart_v1';
+
+    function loadCart() {
+      try {
+        return JSON.parse(localStorage.getItem(CART_KEY)) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveCart(cart) {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    let cart = loadCart();
+
+    function updateCartUI() {
+      const container = document.getElementById('cartItems');
+      container.innerHTML = '';
+      let total = 0;
+      let hasItems = false;
+
+      Object.keys(cart).forEach(id => {
+        const product = PRODUCTS.find(p => p.id == id);
+        if (!product) return;
+        hasItems = true;
+        const qty = cart[id];
+        total += product.price * qty;
+
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+
+        div.innerHTML = `
+          <img src="${product.img}" alt="${product.title}" loading="lazy" decoding="async" />
+          <div class="cart-item-info">
+            <strong>${product.title}</strong>
+            <div class="price-qty">₹${product.price} x ${qty}</div>
+          </div>
+          <div class="qty-controls">
+            <button onclick="changeQty(${product.id}, ${qty - 1})">-</button>
+            <button onclick="changeQty(${product.id}, ${qty + 1})">+</button>
+            <button class="remove" onclick="removeItem(${product.id})">Remove</button>
+          </div>
+        `;
+
+        container.appendChild(div);
+      });
+
+      document.getElementById('cartTotal').textContent = total;
+      document.getElementById('checkoutBtn').disabled = !hasItems;
+    }
+
+    function changeQty(id, qty) {
+      if (qty <= 0) {
+        delete cart[id];
+      } else {
+        cart[id] = qty;
+      }
+      saveCart(cart);
+      updateCartUI();
+    }
+
+    function removeItem(id) {
+      delete cart[id];
+      saveCart(cart);
+      updateCartUI();
+    }
+
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+      alert('Checkout is demo-only. Your total is: ₹' + document.getElementById('cartTotal').textContent);
+    });
+
+    updateCartUI();
+  </script>
+</body>
+</html>

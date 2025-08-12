@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>To-Do App — Hitesh Khutela</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== Extra Styles for To-Do / Notes ===== */
+    .note-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1rem;
+      transition: background 0.3s ease, opacity 0.3s ease;
+    }
+    .note-card.completed {
+      opacity: 0.6;
+      background: #f0f0f0;
+    }
+    .note-card h3 {
+      margin-bottom: 0.3rem;
+      color: var(--primary-dark);
+    }
+    .note-actions {
+      margin-top: 0.6rem;
+    }
+    .note-actions button {
+      margin-right: 0.4rem;
+      padding: 0.3rem 0.6rem;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      background: var(--primary);
+      color: var(--white);
+      transition: background 0.3s ease;
+    }
+    .note-actions button:hover {
+      background: var(--primary-dark);
+    }
+    textarea, input[type="text"] {
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    #addNoteBtn {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #addNoteBtn:hover {
+      background: var(--primary-dark);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== Header (Same Style as Other Pages) ===== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html">Hitesh Khutela</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="todo.html">To-Do App</a>
+      <a href="products.html">Products</a>
+      <a href="contact.html" class="btn-outline">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== Main Content ===== -->
+<main class="container">
+  <section class="card">
+    <h1>My Notes / To-Do List</h1>
+    <input type="text" id="noteTitle" placeholder="Title" style="margin-bottom:0.5rem; width:100%;">
+    <textarea id="noteDesc" placeholder="Description" rows="3" style="width:100%;"></textarea>
+    <button id="addNoteBtn">Add Note</button>
+    <div id="notesList" style="margin-top:1rem;"></div>
+  </section>
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2025 Task-4 Projects</p>
+  </div>
+</footer>
+
+<!-- ===== JavaScript ===== -->
+<script>
+let notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+const noteTitle = document.getElementById("noteTitle");
+const noteDesc = document.getElementById("noteDesc");
+const addNoteBtn = document.getElementById("addNoteBtn");
+const notesList = document.getElementById("notesList");
+
+function renderNotes() {
+  notesList.innerHTML = "";
+  notes.forEach((note, index) => {
+    const div = document.createElement("div");
+    div.className = `note-card ${note.completed ? "completed" : ""}`;
+    div.innerHTML = `
+      <h3>${note.title}</h3>
+      <p>${note.description}</p>
+      <div class="note-actions">
+        <button onclick="toggleComplete(${index})">${note.completed ? "Undo" : "Done"}</button>
+        <button onclick="editNote(${index})">Edit</button>
+        <button onclick="deleteNote(${index})">Delete</button>
+      </div>
+    `;
+    notesList.appendChild(div);
+  });
+  localStorage.setItem("notes", JSON.stringify(notes));
+}
+
+function addNote() {
+  const title = noteTitle.value.trim();
+  const description = noteDesc.value.trim();
+  if (title && description) {
+    notes.push({ title, description, completed: false });
+    noteTitle.value = "";
+    noteDesc.value = "";
+    renderNotes();
+  } else {
+    alert("Please enter both title and description");
+  }
+}
+
+function deleteNote(index) {
+  notes.splice(index, 1);
+  renderNotes();
+}
+
+function toggleComplete(index) {
+  notes[index].completed = !notes[index].completed;
+  renderNotes();
+}
+
+function editNote(index) {
+  const note = notes[index];
+  const newTitle = prompt("Edit title:", note.title);
+  const newDesc = prompt("Edit description:", note.description);
+  if (newTitle !== null && newDesc !== null) {
+    notes[index].title = newTitle.trim() || note.title;
+    notes[index].description = newDesc.trim() || note.description;
+    renderNotes();
+  }
+}
+
+addNoteBtn.addEventListener("click", addNote);
+
+renderNotes();
+</script>
+
+</body>
+</html>

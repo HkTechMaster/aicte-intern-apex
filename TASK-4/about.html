@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About — Hitesh Khutela</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">Hitesh Khutela</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="todo.html">To‑Do App</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html" >Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card about-card">
+      <h1>About Me</h1>
+      <p>I am an aspiring software developer pursuing B.Tech in Computer Science & Engineering. I have experience with Python internships and hands-on projects using Node.js, Express and MongoDB. I'm passionate about frontend development and creating responsive, accessible user interfaces.</p>
+
+      <h2>Education</h2>
+      <ul>
+        <li> <strong>B.Tech, Computer Science & Engineering</strong> — SVSU (2023–2027)</li>
+        <li> <strong>Senior Secondary (XII)</strong> — Tagore Academy Public School, Palwal (70.00%)</li>
+        <li> <strong>Secondary (X)</strong> — Tagore Academy Public School, Palwal  (80.00%)</li>
+      </ul>
+
+      <h2>Skills</h2>
+      <p>HTML, CSS, JavaScript, Node.js, Express.js, MongoDB, EJS, Python, C++, MS-Excel</p>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 Task-4 Projects</p>
+    </div>
+  </footer>
+  <style>
+    /* ===== General Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #0077b6;
+  --primary-dark: #0077b6;
+  --white: #fff;
+  --light: #f8f9fa;
+  --muted: #555;
+  --radius: 8px;
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --max-width: 1100px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background: var(--light);
+  color: #222;
+}
+
+/* ===== Header ===== */
+.site-header {
+  background: var(--primary);
+  color: var(--white);
+  padding: 1rem 0;
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.nav a {
+  color: var(--white);
+  margin-left: 1rem;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav a:hover {
+  color: #caf0f8;
+}
+
+.btn-outline {
+  border: 1px solid var(--white);
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius);
+}
+
+.btn-outline:hover {
+  background: var(--white);
+  color: var(--primary);
+}
+
+/* ===== Container ===== */
+.container {
+  max-width: var(--max-width);
+  margin: auto;
+  padding: 1rem;
+}
+
+/* ===== Card Style ===== */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.about-card h1 {
+  margin-bottom: 1rem;
+  color: var(--primary-dark);
+}
+
+.about-card h2 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.about-card ul {
+  margin-left: 1.2rem;
+}
+
+.about-card li {
+  margin-bottom: 0.4rem;
+}
+
+.about-card p {
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  background: var(--primary-dark);
+  color: var(--white);
+  text-align: center;
+  padding: 0.8rem;
+  margin-top: 2rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav {
+    margin-top: 0.5rem;
+  }
+  .nav a {
+    display: inline-block;
+    margin: 0.3rem 0.5rem 0 0;
+  }
+}
+  </style>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Products — Hitesh Khutela</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== Extra CSS for Product Page ===== */
+    .product-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .product-controls select,
+    .product-controls input {
+      padding: 0.4rem;
+      border-radius: var(--radius);
+      border: 1px solid #ccc;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      margin-bottom: 0.5rem;
+    }
+
+    .product-card h4 {
+      margin-bottom: 0.3rem;
+    }
+
+    .product-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .product-card .price {
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== Header (Same as About/Home) ===== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html">Hitesh Khutela</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="todo.html">To-Do App</a>
+      <a href="products.html">Products</a>
+      <a href="contact.html" class="btn-outline">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== Main Content ===== -->
+<main class="container">
+  <section class="card">
+    <h1>Our Products</h1>
+    <div class="product-controls">
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+        <option value="home">Home</option>
+        <option value="accessories">Accessories</option>
+      </select>
+
+      <select id="sortBy">
+        <option value="price-asc">Price: Low → High</option>
+        <option value="price-desc">Price: High → Low</option>
+        <option value="rating-desc">Rating</option>
+      </select>
+
+      <input type="text" id="searchBar" placeholder="Search products...">
+    </div>
+
+    <div id="productList" class="products-grid"></div>
+  </section>
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2025 Task-4 Projects</p>
+  </div>
+</footer>
+
+<!-- ===== JavaScript ===== -->
+<script>
+const products = [
+  {name:"Laptop Pro", category:"electronics", price:900, rating:4.7, img:"https://jabarekspres.com/wp-content/uploads/2024/01/0_lFtXGZ5aY4ckM0pq.jpg"},
+  {name:"Smartphone", category:"electronics", price:600, rating:4.5, img:"https://tse3.mm.bing.net/th/id/OIP.SvOHHOHbhazWOPPejadOTgHaEl?pid=Api&P=0&h=180"},
+  {name:"Bluetooth Headphones", category:"electronics", price:150, rating:4.3, img:"https://www.bhphotovideo.com/images/images2500x2500/sony_mdr10rbt_bluetooth_headphone_1003990.jpg"},
+  {name:"Comfy T-shirt", category:"clothing", price:20, rating:4.1, img:"https://tse3.mm.bing.net/th/id/OIP.l1DLE4Mki5XoCs_4mzgUPwHaHa?pid=Api&P=0&h=180"},
+  {name:"Jeans Classic", category:"clothing", price:40, rating:4.4, img:"https://tse2.mm.bing.net/th/id/OIP.zgQCBnlYkKQ5xK3RIBw4BwHaHa?pid=Api&P=0&h=180"},
+  {name:"Designer Handbag", category:"accessories", price:120, rating:4.6, img:"https://tse1.mm.bing.net/th/id/OIP.W_Q78aF87xyzYLY3jcUH8QHaEK?pid=Api&P=0&h=180"},
+  {name:"Coffee Maker", category:"home", price:80, rating:4.0, img:"https://i5.walmartimages.com/asr/e0185493-8422-4773-b0b4-30742c07b3e9_1.074b4469f6bb12abac0ebf88babb4924.jpeg?odnWidth=1000&odnHeight=1000&odnBg=ffffff"},
+  {name:"Table Lamp", category:"home", price:35, rating:4.2, img:"https://i5.walmartimages.com/asr/781a1609-0df7-49fc-86b2-ae11b6570d34.21c36a302835a319a1e3891d9f2faa94.jpeg"},
+  {name:"Wrist Watch", category:"accessories", price:75, rating:4.5, img:"https://tse2.mm.bing.net/th/id/OIP.qh3t67uwZiuCUJjK84NiWAHaHa?pid=Api&P=0&h=180"},
+  {name:"Running Shoes", category:"clothing", price:60, rating:4.3, img:"https://tse2.mm.bing.net/th/id/OIP.3sh2-o-ozj5UJK8tjePLtgHaHa?pid=Api&P=0&h=180"},
+  {name:"Gaming Keyboard", category:"electronics", price:85, rating:4.4, img:"https://wallpapers.com/images/hd/gaming-keyboards-1850-x-1233-wallpaper-gekfsj1cpq7anbht.jpg"},
+  {name:"Office Chair", category:"home", price:150, rating:4.6, img:"https://tse1.mm.bing.net/th/id/OIP.RiUq3EuA-Dojsfn2XCV7QQHaHa?pid=Api&P=0&h=180"}
+];
+
+const productList = document.getElementById("productList");
+const categoryFilter = document.getElementById("categoryFilter");
+const sortBy = document.getElementById("sortBy");
+const searchBar = document.getElementById("searchBar");
+
+function renderProducts(items) {
+  productList.innerHTML = items.map(p => `
+    <div class="product-card">
+      <img src="${p.img}" alt="${p.name}">
+      <h4>${p.name}</h4>
+      <p>${p.category} · ⭐ ${p.rating}</p>
+      <p class="price">$${p.price}</p>
+      <button class="btn" onclick="alert('Added ${p.name} to cart!')">Add to Cart</button>
+    </div>
+  `).join("");
+}
+
+function applyFilters() {
+  let filtered = [...products];
+
+  if (categoryFilter.value !== "all") {
+    filtered = filtered.filter(p => p.category === categoryFilter.value);
+  }
+
+  const searchTerm = searchBar.value.toLowerCase();
+  if (searchTerm) {
+    filtered = filtered.filter(p => p.name.toLowerCase().includes(searchTerm));
+  }
+
+  if (sortBy.value === "price-asc") filtered.sort((a,b) => a.price - b.price);
+  if (sortBy.value === "price-desc") filtered.sort((a,b) => b.price - a.price);
+  if (sortBy.value === "rating-desc") filtered.sort((a,b) => b.rating - a.rating);
+
+  renderProducts(filtered);
+}
+
+categoryFilter.addEventListener("change", applyFilters);
+sortBy.addEventListener("change", applyFilters);
+searchBar.addEventListener("input", applyFilters);
+
+renderProducts(products);
+</script>
+
+</body>
+</html>

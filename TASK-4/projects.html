@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Projects — Harsh Khutela</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Extra styling for project cards */
+    .projects-heading {
+      color: black;
+      margin-bottom: 1.5rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.2rem;
+    }
+    .project-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .project-card h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">Harsh Khutela</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="todo.html">To-Do App</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html" class="btn-outline">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="projects-heading">My Projects</h1>
+    <div class="grid-2">
+      <article class="card project-card">
+        <h3>Chemistry Website</h3>
+        <p>Frontend app (Html, Css and JS). Work for uploading projects.</p>
+      </article>
+
+      <article class="card project-card">
+        <h3>Schedulo — Timetable Generator</h3>
+        <p>Full-stack app (Node, Express, MongoDB, EJS). Collaborative project for generating timetables.</p>
+      </article>
+
+      <article class="card project-card">
+        <h3>Yogaveer — LMS Backend Contributions</h3>
+        <p>Backend work using Node.js, Express.js and MongoDB. Integrated with frontend templates.</p>
+      </article>
+
+      <article class="card project-card">
+        <h3>To-Do App (Built-in)</h3>
+        <p>A simple to-do app with localStorage persistence — try the page from the navigation menu.</p>
+      </article>
+
+      <article class="card project-card">
+        <h3>Products Listing (Built-in)</h3>
+        <p>Product listing page with filtering by category and sorting by price or rating.</p>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 Task-4 Projects</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>MiniShop — E‑commerce Demo</title>
+
+  <!-- Inline critical CSS to reduce render-blocking requests -->
+  <style>
+    /* Critical / above-the-fold (minified) */
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;line-height:1.4;margin:0;background:#f6f8fb;color:#0b2135}
+    header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;background:#fff;border-bottom:1px solid #e6eef6;position:sticky;top:0;z-index:20}
+    .brand{font-weight:700;color:#0a6b63}
+    .main{max-width:1100px;margin:1rem auto;padding:0 1rem}
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+    .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 6px 18px rgba(11,33,53,0.06);display:flex;flex-direction:column}
+    .card img{width:100%;height:180px;object-fit:cover}
+    .card-body{padding:0.8rem 1rem;flex:1;display:flex;flex-direction:column}
+    .title{font-weight:600;margin:0 0 .5rem;font-size:0.95rem}
+    .price{margin-top:auto;font-weight:700;color:#0a6b63}
+    .btn{border:0;background:#0a6b63;color:#fff;padding:.5rem .7rem;border-radius:8px;cursor:pointer}
+    @media (max-width:420px){header{padding:.6rem 0.8rem}.card img{height:150px}}
+  </style>
+
+  <!-- Preload full stylesheet (non-blocking) -->
+  <link rel="preload" href="styles.min.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles.min.css"></noscript>
+
+  <!-- Simple manifest for mobile browsers (optional) -->
+  <meta name="theme-color" content="#0a6b63">
+</head>
+<body>
+  <header>
+    <div class="brand">MiniShop</div>
+    <nav aria-label="Main">
+      <a href="cart.html" class="btn" id="cartToggle">Cart (<span id="cartCount">0</span>)</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <section aria-labelledby="products-heading">
+      <h1 id="products-heading">Featured Products</h1>
+      <div id="products" class="products" role="list">
+        <!-- Product cards injected by JS -->
+      </div>
+    </section>
+
+    <aside id="cartPanel" aria-hidden="true" style="display:none;margin-top:1rem;">
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <div style="margin-top:.75rem"><strong>Total: ₹<span id="cartTotal">0</span></strong></div>
+      <div style="margin-top:.5rem"><button id="checkoutBtn" class="btn">Checkout</button></div>
+    </aside>
+  </main>
+
+  <!-- Load minimal JS: defer to not block rendering -->
+  <script src="app.min.js" defer></script>
+</body>
+</html>
